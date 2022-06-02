@@ -1,0 +1,97 @@
+<div class="container">
+
+  <div class="row mb-3 mt-5">
+    <div class="col-lg"></div>
+    <div class="col-lg">
+
+      <button type="button" id="btnVacina" class="btn btn-dark w-100" onClick="showFormVacina()">Cadastrar Vacina</button>
+
+      <div class="row mb-2" id="cadastroVacina" style="display:none">
+        <form name="vacina" onsubmit="saveVacina(event)">
+          <div class="form-group">
+            <label for="marca">Marca</label>
+            <input type="text" class="form-control" name="marca" id="marca" placeholder="Marca">
+          </div>
+          <div class="form-group">
+            <label for="lote">Lote</label>
+            <input type="text" class="form-control" name="lote" id="lote" placeholder="Lote">
+          </div>
+
+
+          <input type="submit" name='btnSubmit' id='btnSubmit' value='Salvar' class="btn btn-success mt-3">
+            <button type="button" class="btn btn-danger mt-3" onClick="cancelVacina()">Cancelar</button>
+
+        </form>
+      </div>
+
+    </div>
+    <div class="col-lg"></div>
+  </div>
+    <div class="row mb-3 mt-3">
+        <div class="col-lg"></div>
+        <div class="col-lg">
+
+            <button type="button" id="btnMovimento" class="btn btn-dark w-100" onClick="showFormMovimento()" >Entrada/Saída</button>
+
+            <div class="row mb-2" id="cadastroMovimento" style="display:none">
+                <form name="movimento" onsubmit="movimentaVacina(event)">
+                    <div>
+                        <label for="vacina-select">Vacina:</label>
+                    </div>
+                    <select name="" id="vacinas">
+                        <option value="">Escolha a vacina</option>
+                    </select>
+
+                    <div class="form-group">
+                        <label for="lote">Quantidade</label>
+                        <input type="text" class="form-control" name="quantidade" id="quantidade" placeholder="Quantidade">
+                    </div>
+
+                    <span>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="ENTRADA">
+                            <label class="form-check-label" for="flexRadioDefault1">Entrada</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="SAIDA" checked>
+                            <label class="form-check-label" for="flexRadioDefault2">Saída</label>
+                        </div>
+                    </span>
+                    <input type="submit" name='btnSubmit' id='btnSubmit' value='Salvar' class="btn btn-success mt-3" >
+                    <button type="button" class="btn btn-danger mt-3" onClick="cancelMovimento()">Cancelar</button>
+
+                </form>
+            </div>
+
+        </div>
+        <div class="col-lg"></div>
+    </div>
+
+  <div class="row">
+    <div class="col-lg"></div>
+    <div class="col-lg">
+
+      <button type="button" id="btnEstoque" class="btn btn-dark w-100" onClick="showTableEstoque()">Inventário</button>
+
+      <div class="row mt-3" id="tableEstoque" style="display:none">
+            <span>
+                <input type="text" class="col-sm" style = "width: 100px;" maxlength="7" name="anoMes" id="AnoMes" placeholder="(YYYY/MM)">
+                <button type="button" class="btn btn-warning mt-1 mb-1" onClick="listaVacinaAnoMes()">Listar</button>
+            </span>
+        <table id="tabela-vacina">
+            <thead>
+                <tr>
+                    <th>Marca</th>
+                    <th>Quantidade</th>
+                </tr>
+            </thead>
+          <tbody >
+
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+    <div class="col-lg"></div>
+  </div>
+</div>
