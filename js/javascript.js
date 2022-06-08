@@ -65,11 +65,18 @@ async function saveVacina(event){
   const form = event.target;
   const marca = form[0].value;
   const lote = form[1].value;
-
+try{
   await axios.post("http://localhost:8081/vacina/cadastrar",{
     descricaoMaterial: marca,
     lote
+
   })
+
+  alert("Vacina "+ marca +" salva com sucesso!")
+}catch (error){
+  alert("")
+}
+
   carregaVacina();
 
     form[0].value = "";
@@ -79,7 +86,7 @@ async function saveVacina(event){
 async function carregaVacina(){
   const {data} = await axios.get("http://localhost:8081/vacina/listar");
   const vacinas = document.querySelector("#vacinas");
-  vacinas.options.length = 0;
+  vacinas.options.length = 1;
   data.forEach((vacina) => {
     vacinas.appendChild(new Option(vacina.descricaoMaterial,vacina.id));
   });
@@ -99,6 +106,7 @@ async function movimentaVacina(event){
       operacao,
       qtde : quantidade
     })
+    alert ("Movimento realizado!")
   } catch (error){
     alert(error.response.data.erro);
   }
@@ -108,21 +116,25 @@ async function movimentaVacina(event){
 async function listaVacinaAnoMes(){
   const anomes = document.querySelector("#AnoMes").value;
   console.log(anomes);
-  const {data} = await axios.get(`http://localhost:8081/estoque/listar/${anomes}`)
-  console.log(data);
-  const tabelaVacinas = document.getElementById("tabela-vacina");
-  var rowCount = tabelaVacinas.rows.length;
+  try{
+    const {data} = await axios.get(`http://localhost:8081/estoque/listar/${anomes}`)
+    console.log(data);
+    const tabelaVacinas = document.getElementById("tabela-vacina");
+    var rowCount = tabelaVacinas.rows.length;
 
-  for (var i=rowCount-1; i > 0; i--) {
-    tabelaVacinas.deleteRow(i);
+    for (var i=rowCount-1; i > 0; i--) {
+      tabelaVacinas.deleteRow(i);
+    }
+    data.itens.forEach((vacinas) => {
+      var row = tabelaVacinas.tBodies[0].insertRow(0);
+      var cell1 = row.insertCell(-1)
+      var cell2 = row.insertCell(-1)
+      cell1.innerHTML = vacinas.vacina;
+      cell2.innerHTML = vacinas.quantidade;
+    });
+  }catch (error){
+    alert("Data invalida")
   }
-  data.itens.forEach((vacinas) => {
-    var row = tabelaVacinas.tBodies[0].insertRow(0);
-    var cell1 = row.insertCell(-1)
-    var cell2 = row.insertCell(-1)
-    cell1.innerHTML = vacinas.vacina;
-    cell2.innerHTML = vacinas.quantidade;
-  });
 
 }
 
